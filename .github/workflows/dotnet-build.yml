@@ -1,0 +1,25 @@
+name: Meu Workflow Automático
+
+on:
+  push:
+  schedule:
+    - cron: '0 * * * *'
+
+jobs:
+  executar-workflow:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Fazer checkout do repositório
+        uses: actions/checkout@v3
+
+      - name: Instalar .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '7.0.x'  # ou a versão que seu projeto usa
+
+      - name: Build do projeto .NET
+        run: dotnet build
+
+      - name: Rodar script personalizado
+        run: bash ./meu_script.sh
